@@ -24,7 +24,14 @@ fn handle_stream(mut stream: TcpStream) {
         println!("im handling {:?}", stream.local_addr().unwrap().ip());
         let mut s = String::new();
         let _ = stream.read_to_string(&mut s);
+        parse_http(&s);
 
-        println!("connection closed");
+        // println!("connection closed");
     });
+}
+
+fn parse_http(s: &str) {
+    s.split("\n")
+        .enumerate()
+        .for_each(|(i, s)| println!("{i}: {s}"));
 }
